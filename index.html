@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>CSA Deep Research Report</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="//unpkg.com/docsify/themes/vue.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Inter', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+        background: #f8fafc;
+        color: #222;
+      }
+      #app {
+        max-width: 900px;
+        margin: 40px auto 40px auto;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 16px 0 rgba(60,72,88,0.08);
+        padding: 32px 36px 36px 36px;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Inter', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+        font-weight: 600;
+        color: #5F2167; /* Peel Hunt purple */
+      }
+      a {
+        color: #5F2167; /* Peel Hunt purple */
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      a:hover {
+        color: #8C5E92; /* Lighter purple */
+        text-decoration: underline;
+      }
+      .sidebar {
+        background: #E8DFC9; /* Peel Hunt sand */
+      }
+      .sidebar ul>li>a {
+        color: #5F2167;
+        background: transparent;
+      }
+      .sidebar ul>li>a.active,
+      .sidebar ul li.active > a,
+      .sidebar ul li.active > a:not(.section-link),
+      .sidebar ul li.open > a,
+      .sidebar ul li > a.router-link-active,
+      .sidebar ul li > a:active,
+      .sidebar ul li > a:focus {
+        color: #E8DFC9 !important; /* sand text on purple */
+        background: #5F2167 !important;
+        font-weight: 600;
+        border-radius: 4px;
+        box-shadow: none;
+      }
+      .sidebar ul>li>ul>li>a {
+        color: #8C5E92;
+        background: transparent;
+      }
+      .sidebar ul>li>ul>li>a.active,
+      .sidebar ul li.active ul li.active > a,
+      .sidebar ul li.active ul li > a.router-link-active {
+        color: #5F2167 !important;
+        background: #D4C19C !important;
+      }
+      /* Remove big block backgrounds from sidebar titles */
+      .sidebar .app-name {
+        background: transparent !important;
+        color: #5F2167 !important;
+        font-weight: 700;
+        border-radius: 0;
+        box-shadow: none;
+      }
+      .back-btn {
+        position: fixed;
+        bottom: 32px;
+        left: 32px;
+        z-index: 1000;
+        background: #fff;
+        border: 1px solid #D4C19C;
+        border-radius: 6px;
+        box-shadow: 0 2px 8px 0 rgba(60,72,88,0.08);
+        padding: 6px 14px;
+        font-size: 0.95rem;
+        color: #5F2167;
+        cursor: pointer;
+        transition: background 0.2s, color 0.2s;
+        opacity: 0.92;
+        margin-bottom: 16px;
+      }
+      .back-btn:hover {
+        background: #E8DFC9;
+        color: #8C5E92;
+        opacity: 1;
+      }
+      /* Table styling for Peel Hunt brand */
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        background: #fff;
+      }
+      th {
+        background: #5F2167;
+        color: #fff;
+        font-weight: 600;
+        padding: 8px 12px;
+      }
+      td {
+        padding: 8px 12px;
+        border-bottom: 1px solid #E0E0E0;
+      }
+      tr:nth-child(even) td {
+        background: #E8DFC9;
+      }
+      tr:nth-child(odd) td {
+        background: #fff;
+      }
+      code, pre {
+        background: #E8DFC9;
+        color: #5F2167;
+        border-radius: 4px;
+        padding: 2px 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <button class="back-btn" id="backBtn" style="display:none;">← Back</button>
+    <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+    <script>
+      // Show back button except on home
+      function updateBackBtn() {
+        var btn = document.getElementById('backBtn');
+        var path = location.hash.replace(/^#\/?/, '');
+        if (btn) {
+          if (path && path.toLowerCase() !== 'readme.md') {
+            btn.style.display = 'block';
+          } else {
+            btn.style.display = 'none';
+          }
+        }
+      }
+      window.addEventListener('hashchange', updateBackBtn);
+      window.addEventListener('DOMContentLoaded', updateBackBtn);
+      document.getElementById('backBtn').onclick = function() {
+        window.history.length > 1 ? window.history.back() : window.location.hash = '';
+      };
+      // Sidebar active highlighting is handled by Docsify, but ensure theme is clear
+    </script>
+  </body>
+</html>
