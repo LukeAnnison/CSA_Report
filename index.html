@@ -294,10 +294,9 @@
         repo: '',
         loadSidebar: true,
         subMaxLevel: 4,
-        basePath: '/CSA_Report/',   // Ensures GH Pages loads from subfolder
-        homepage: 'README.md',
+        basePath: '/CSA_Report/',        homepage: 'README.md',
         alias: {
-            '/.*/_sidebar.md': '/_sidebar.md' // Local-friendly alias
+          // Removed specific alias for _sidebar.md, relying on loadSidebar + basePath
         }
       };
     </script>
