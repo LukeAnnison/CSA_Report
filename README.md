@@ -1,4 +1,4 @@
-# CSA Deep Research Report
+# CSA Report
 
 This documentation provides a comprehensive reference on Commission Sharing Arrangements (CSAs), with a focus on the UK regulatory environment and practical implementation. The guide is structured for clarity and direct access to regulatory context, operational models, compliance, and best practices.
 
@@ -63,8 +63,4 @@ This documentation provides a comprehensive reference on Commission Sharing Arra
 
 *Use this guide as a reference, a learning tool, or a deep-dive resource. For best navigation, use the sidebar or the links above.*
 
-*_*Disclaimer: The information presented in this report is indicative and has been compiled with assistance from AI. It should be considered a starting point and a working model. Users are advised to independently verify and confirm all legal, commercial, and internal relevance before relying on this content absolutely.*_*
-
-CSA Deep Research Report #spark_note
-- **Note Status**: Open
-- [Commission Sharing Arrangements (CSAs) for a UK Small-Cap Sell-Side Firm](<Commission Sharing Arrangements (CSAs) for a UK Small-Cap Sell-Side Firm/README.md>)
+*_Disclaimer: The information presented in this report is indicative and has been compiled with assistance from AI. It should be considered a starting point and a working model. Users are advised to independently verify and confirm all legal, commercial, and internal relevance before relying on this content absolutely._*
