@@ -293,11 +293,10 @@
         name: 'CSA Report',
         repo: '',
         loadSidebar: true,
-        subMaxLevel: 4,
-        basePath: '/CSA_Report/',
-        homepage: 'README.md',
+        // basePath: '/CSA_Report/', // Ensures GH Pages loads from subfolder
+        subMaxLevel: 3,
         alias: {
-          // No alias for _sidebar.md for this test
+            '/.*/_sidebar.md': '/_sidebar.md' // Local-friendly alias
         }
       };
     </script>
