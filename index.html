@@ -9,13 +9,13 @@
     <style>
       body {
         font-family: 'Inter', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-        background: #f8fafc;
-        color: #222;
+        background: #f8fafc; /* Lighter, more neutral background */
+        color: #333; /* Slightly darker default text for better contrast */
       }
       #app {
         max-width: 900px;
         margin: 40px auto 40px auto;
-        background: #fff;
+        background: #fff; /* White background for content area */
         border-radius: 12px;
         box-shadow: 0 2px 16px 0 rgba(60,72,88,0.08);
         padding: 32px 36px 36px 36px;
@@ -25,22 +25,32 @@
         font-weight: 600;
         color: #5F2167; /* Peel Hunt purple */
       }
-      a {
-        color: #5F2167; /* Peel Hunt purple */
+      /* 1. Body Links */
+      a, a:visited {
+        color: #5F2167 !important; /* PH purple - Added !important */
         text-decoration: none;
         transition: color 0.2s;
       }
-      a:hover {
-        color: #8C5E92; /* Lighter purple */
+      a:hover, a:focus {
+        color: #8C5E92 !important; /* PH purple_light - Added !important */
         text-decoration: underline;
       }
       .sidebar {
-        background: #E8DFC9; /* Peel Hunt sand */
+        background: #fff; /* Changed to white background */
       }
       .sidebar ul>li>a {
-        color: #5F2167;
+        color: #5F2167; /* PH purple */
         background: transparent;
+        transition: background-color 0.2s, color 0.2s; /* Added transition for hover */
+        padding: 10px 15px; /* Increased padding for more breathing room */
+        display: block; /* Ensure padding applies correctly */
       }
+      /* Hover state for non-active sidebar links - more subtle */
+      .sidebar ul>li>a:hover:not(.active) {
+        background-color: transparent; /* No background change on hover */
+        color: #8C5E92; /* PH purple_light text on hover */
+      }
+      /* Active sidebar link - lighter purple background */
       .sidebar ul>li>a.active,
       .sidebar ul li.active > a,
       .sidebar ul li.active > a:not(.section-link),
@@ -48,11 +58,12 @@
       .sidebar ul li > a.router-link-active,
       .sidebar ul li > a:active,
       .sidebar ul li > a:focus {
-        color: #E8DFC9 !important; /* sand text on purple */
-        background: #5F2167 !important;
+        color: #E8DFC9 !important; /* sand text on purple_light */
+        background: #8C5E92 !important; /* PH purple_light background */
         font-weight: 600;
         border-radius: 4px;
         box-shadow: none;
+        /* Padding will be inherited from .sidebar ul>li>a */
       }
       .sidebar ul>li>ul>li>a {
         color: #8C5E92;
@@ -62,71 +73,232 @@
       .sidebar ul li.active ul li.active > a,
       .sidebar ul li.active ul li > a.router-link-active {
         color: #5F2167 !important;
-        background: #D4C19C !important;
+        background: #D4C19C !important; /* PH Sand */
       }
-      /* Remove big block backgrounds from sidebar titles */
+      /* Sidebar App Name styling for better header appearance */
       .sidebar .app-name {
-        background: transparent !important;
-        color: #5F2167 !important;
-        font-weight: 700;
-        border-radius: 0;
-        box-shadow: none;
+        background: #5F2167 !important; /* PH Purple background */
+        /* color: #FFFFFF !important; */ /* Color will be set on the 'a' tag directly */
+        font-weight: bold;
+        padding: 20px 20px 15px 75px; /* Internal padding: top, right, bottom, LEFT (for burger clearance) */
+        margin-top: 30px !important;    /* Vertical spacing from top of sidebar */
+        margin-left: 0;               /* Reset left margin, positioning handled by sidebar flow + padding */
+        margin-right: 0;
+        margin-bottom: 0;
+        line-height: 1.5;
+        text-align: left;
+        border-bottom: 1px solid #8C5E92;
+        display: block !important;
+        opacity: 1 !important;
+        text-shadow: none !important;
       }
-      .back-btn {
+
+      /* Style for the link text within the sidebar app name */
+      .sidebar .app-name a,
+      .sidebar .app-name a:hover,
+      .sidebar .app-name a:focus,
+      .sidebar .app-name a:visited {
+        color: #FFFFFF !important;      /* White text for the link */
+        text-decoration: none !important; /* No underline */
+        font-weight: bold; /* Inherit or set explicitly */
+      }
+
+      /* 2. Burger Menu (Docsify sidebar toggle) */
+      .sidebar-toggle {
+        background: transparent !important; /* Removed background */
+        /* color: #E8DFC9 !important; */ /* Text color no longer needed */
+        border-radius: 50%; /* Keeping for clickable area shape, can be removed if not desired */
+        border: none;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: none !important; /* Removed shadow */
+        /* transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out; */ /* Transition for bg/color no longer needed */
         position: fixed;
-        bottom: 32px;
-        left: 32px;
-        z-index: 1000;
-        background: #fff;
-        border: 1px solid #D4C19C;
+        top: 20px;
+        left: 20px;
+        z-index: 1001;
+      }
+      .sidebar-toggle:hover {
+        /* background: #8C5E92 !important; */ /* Background hover no longer needed */
+        /* color: #fff !important; */ /* Text color hover no longer needed */
+      }
+
+      /* Style for the spans inside the sidebar toggle button (burger lines) */
+      .sidebar-toggle-button span {
+        background-color: #5F2167 !important; /* PH purple for the lines */
+        transition: background-color 0.2s ease-in-out;
+      }
+      .sidebar-toggle:hover .sidebar-toggle-button span {
+        background-color: #8C5E92 !important; /* PH purple_light lines on hover */
+      }
+
+      /* Remove list-style (bullets/dashes) from sidebar lists and manage padding */
+      .sidebar ul,
+      .sidebar ul li {
+        list-style-type: none !important;
+        margin-left: 0 !important;
+      }
+      .sidebar ul { /* Default padding for all uls, overridden below for specific levels */
+        padding-left: 0 !important;
+      }
+
+      /* Align top-level menu items with the .app-name title */
+      .sidebar .sidebar-nav > ul { /* Targets the first UL inside .sidebar-nav */
+        padding-left: 75px !important; /* Align with .app-name text's effective start */
+      }
+
+      /* Adjust padding for links within the top-level list items */
+      .sidebar .sidebar-nav > ul > li > a,
+      .sidebar .sidebar-nav > ul > li > p > a { /* Catches links directly in li or in p within li */
+        /* Assuming original padding was like 10px 15px. We zero out left padding. */
+        padding-top: 10px !important;    /* Preserve or set top padding */
+        padding-right: 15px !important;  /* Preserve or set right padding */
+        padding-bottom: 10px !important; /* Preserve or set bottom padding */
+        padding-left: 0 !important;      /* Text starts at the 75px mark set by parent ul */
+        display: block; /* Ensures padding applies correctly and items are block-level */
+      }
+      
+      /* Indentation for nested lists (e.g., .app-sub-sidebar) */
+      .sidebar .sidebar-nav ul ul { /* Targets all ULs nested under another UL in .sidebar-nav */
+        padding-left: 20px !important; /* Indent nested lists further (relative to their parent li) */
+      }
+      /* Links within nested lists can use default padding, as their ul is already indented */
+      /* So, .sidebar .sidebar-nav ul ul li a would use its default padding (e.g. 10px 15px) */
+
+      /* Attempt to remove pseudo-elements that might be creating dashes */
+      .sidebar ul li::before,
+      .sidebar ul li::after,
+      .sidebar ul li a::before,
+      .sidebar ul li a::after {
+        content: none !important;
+        display: none !important;
+      }
+
+      /* Add indentation back for nested lists (adjust levels as needed) */
+      /* Note: The direct child selector '>' is important here */
+      .sidebar > ul > li > ul {
+        padding-left: 15px !important; /* Indent for 2nd level items */
+      }
+      .sidebar > ul > li > ul > li > ul {
+        padding-left: 15px !important; /* Further indent for 3rd level items */
+      }
+      .sidebar > ul > li > ul > li > ul > li > ul {
+        padding-left: 15px !important; /* Further indent for 4th level items, if any */
+      }
+
+      /* Ensure links within lists still have appropriate padding if affected */
+      /* This rule should already exist and provide text padding: */
+      /* .sidebar ul>li>a { padding: 10px 15px; display: block; } */
+
+      /* 3. General UI Polish for buttons */
+      /* General button styles (will be overridden by .back-btn specific styles below if needed) */
+      button {
+        background: #5F2167; /* PH purple */
+        color: #E8DFC9; /* PH sand_light text */
         border-radius: 6px;
-        box-shadow: 0 2px 8px 0 rgba(60,72,88,0.08);
-        padding: 6px 14px;
-        font-size: 0.95rem;
-        color: #5F2167;
-        cursor: pointer;
-        transition: background 0.2s, color 0.2s;
-        opacity: 0.92;
-        margin-bottom: 16px;
+        border: none; /* Default buttons are filled */
+        font-family: 'Inter', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+        transition: background 0.2s, color 0.2s, border-color 0.2s;
+        padding: 8px 16px; /* Adjusted padding */
+        font-size: 0.9rem; /* Adjusted font size */
+        cursor: pointer; /* Ensure cursor changes */
+      }
+      button:hover {
+        background: #8C5E92; /* PH purple_light */
+        color: #fff; /* White text */
+      }
+
+      /* Back Button - Outlined Style */
+      .back-btn {
+        background: transparent; /* Outlined style */
+        color: #5F2167; /* PH purple text */
+        border: 2px solid #5F2167; /* PH purple border */
+        /* Inherits font-family, border-radius, padding, font-size from general button style */
+        /* Transitions also inherited */
       }
       .back-btn:hover {
-        background: #E8DFC9;
-        color: #8C5E92;
-        opacity: 1;
+        background: #5F2167; /* Fill with PH purple on hover */
+        color: #E8DFC9; /* PH sand_light text on hover */
+        border-color: #5F2167; /* Keep border color consistent */
       }
+
+      /* Remove default general .back-btn styles that were applied before more specific one */
+      /* This section is to ensure the default button styles don't conflict with the new .back-btn style */
+      button.back-btn { /* More specific selector if needed, or just rely on order */
+         /* Styles are defined above specifically for .back-btn */
+      }
+
+      .back-btn { /* This is the main definition now */
+        position: fixed;
+        top: 20px;       /* Distance from top */
+        right: 20px;     /* Distance from right */
+        /* bottom: 32px; */ /* Removed bottom positioning */
+        /* left: 32px; */  /* Removed left positioning */
+        z-index: 1000;
+        box-shadow: none; /* Removed shadow for a flatter look */
+        opacity: 0.92; /* Keep existing opacity */
+        /* margin-bottom: 16px; */ /* Removed margin-bottom as it's top-positioned */
+        /* All other visual styles (bg, color, border, padding, etc.) come from .back-btn rules above */
+      }
+      
       /* Table styling for Peel Hunt brand */
       table {
         border-collapse: collapse;
         width: 100%;
-        background: #fff;
+        background: #fff; /* Ensure table background is white if not overridden by rows */
+        border: 1px solid #D4C19C; /* PH Sand border for the table */
+        border-radius: 6px; /* Rounded corners for the table */
+        overflow: hidden; /* Ensures border-radius clips content */
+        margin-bottom: 1.5em; /* Add some space below tables */
       }
       th {
-        background: #5F2167;
-        color: #fff;
+        background: #5F2167; /* PH purple */
+        color: #fff; /* White text */
         font-weight: 600;
-        padding: 8px 12px;
+        padding: 10px 14px; /* Adjusted padding */
+        text-align: left; /* Align text to left for headers */
       }
       td {
-        padding: 8px 12px;
-        border-bottom: 1px solid #E0E0E0;
+        padding: 10px 14px; /* Adjusted padding */
+        border-bottom: 1px solid #E0E0E0; /* PH gray for subtle row separation */
+        color: #333; /* Darker text for readability */
       }
       tr:nth-child(even) td {
-        background: #E8DFC9;
+        background: #E8DFC9; /* PH sand_light */
       }
       tr:nth-child(odd) td {
-        background: #fff;
+        background: #fff; /* White background for odd rows */
+      }
+      tr:last-child td {
+        border-bottom: none; /* Remove border for the last row */
       }
       code, pre {
-        background: #E8DFC9;
-        color: #5F2167;
+        background: #E8DFC9; /* PH sand_light */
+        color: #5F2167; /* PH purple text */
         border-radius: 4px;
-        padding: 2px 6px;
+        padding: 3px 6px; /* Slightly adjusted padding */
+        border: 1px solid #D4C19C; /* PH Sand border */
+        font-size: 0.9em;
       }
     </style>
   </head>
   <body>
     <div id="app"></div>
     <button class="back-btn" id="backBtn" style="display:none;">← Back</button>
+    <script>
+      window.$docsify = {
+        name: 'CSA Deep Research Report',
+        repo: '',
+        loadSidebar: true,
+        subMaxLevel: 4, // Display up to 4 levels in the sidebar an allow accordion
+        alias: {
+          '/.*/_sidebar.md': '/_sidebar.md'
+        }
+      };
+    </script>
     <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
     <script>
       // Show back button except on home
